@@ -12,7 +12,7 @@ public class TicTacToeGame {
 	}
 
 	private static char[] createBoard() {
-		char[] board1 = new char[10];
+		char[] board1 = new char[10]; //To create 1-D Array of size 10
 		for (int i = 0; i < board1.length; i++) {
 			board1[i] = ' ';
 		}
