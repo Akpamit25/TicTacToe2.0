@@ -4,11 +4,13 @@ import java.util.*;
 import java.lang.*;
 
 public class TicTacToeGame {
-	
+
 	private static char[] board;
-	
+	private static char userMark;
+	private static char computerMark;
+
 	public static void main(String[] args) {
-		
+
 		board = createBoard();
 		System.out.println("Enter Your Mark");
 		Scanner sc = new Scanner(System.in);
@@ -17,7 +19,9 @@ public class TicTacToeGame {
 		showBoard(board);
 		System.out.println("Enter any Index from 1 to 9");
 		Scanner sc2 = new Scanner(System.in);
-		System.out.println("Current Position :"+selectIndex(sc2));
+		int Index = sc2.nextInt();
+		System.out.println("It is " + selectIndex(Index) + " that Current Position is available");
+		makeMove();
 
 	}
 
@@ -26,7 +30,9 @@ public class TicTacToeGame {
 		char[] board1 = new char[10];
 		for (int i = 0; i < board1.length; i++) {
 			board1[i] = ' ';
+
 		}
+		System.out.println("Board Created");
 		return board1;
 	}
 
@@ -44,30 +50,36 @@ public class TicTacToeGame {
 			}
 		}
 	}
-	
-	private static int selectIndex(Scanner Index)
-	{    int position = Index.nextInt();
-		if(position <1 || position >9)
-		{
+
+	private static boolean selectIndex(int position) {
+		//int position = Index.nextInt();
+		if (position < 1 || position > 9) {
 			System.out.println("Invalid Input, please enter again !!");
 			Scanner sc3 = new Scanner(System.in);
-			selectIndex(sc3);
-		}
-		else if(position <=9 && position >=1)
-		{   
-			if(board[position] == ' ')
-			{
+			int Index = sc3.nextInt();
+			selectIndex(Index);
+		} else if (position <= 9 && position >= 1) {
+			if (board[position] == ' ') {
 				System.out.println("Position free to move !!");
-				
-			}
-			else 
-			{
+
+			} else {
 				System.out.println("Position already occupied, choose other position.");
 				Scanner sc4 = new Scanner(System.in);
-				selectIndex(sc4);
+				int Index = sc4.nextInt();
+				selectIndex(Index);
 			}
 		}
-		return position;
+		return true;
+	}
+
+	private static void makeMove() {
+		System.out.println("Enter the position number where you want to play the move");
+		Scanner sc5 = new Scanner(System.in);
+		int Index1 = sc5.nextInt();
+		if (selectIndex(Index1)) {
+			board[Index1] = userMark;
+			showBoard(board);
+		}
 	}
 
 }
