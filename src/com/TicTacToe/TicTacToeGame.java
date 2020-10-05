@@ -12,6 +12,7 @@ public class TicTacToeGame {
 		Scanner sc = new Scanner(System.in);
 		char userMark = userChoice(sc);
 		char computerMark = (userMark == 'X') ? 'O' : 'X';
+		showBoard(board);
 
 	}
 
@@ -28,6 +29,19 @@ public class TicTacToeGame {
 	{
 		char c = sc1.next().toUpperCase().charAt(0);
 		return c;
+	}
+	
+	private static void showBoard(char[] board2)
+	{
+		for(int j=1;j<board2.length;j++)
+		{
+			System.out.print("["+board2[j]+"]");
+			if(j%3==0)
+			{
+				System.out.println(" ");
+				System.out.println("---------");
+			}
+		}
 	}
 	
 	
