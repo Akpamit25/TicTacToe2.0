@@ -10,18 +10,22 @@ public class TicTacToeGame {
 	private static char computerMark;
 
 	public static void main(String[] args) {
-
-		board = createBoard();
-		System.out.println("Enter Your Mark");
-		Scanner sc = new Scanner(System.in);
-		char userMark = userChoice(sc);
-		char computerMark = (userMark == 'X') ? 'O' : 'X';
-		showBoard(board);
+		TicTacToeGame TTTG = new TicTacToeGame();
+		board = TTTG.createBoard();
+		TTTG.showBoard(board);
+		//System.out.println("Enter Your Mark");
+		System.out.println("Let's Toss");
+		TTTG.toss();
+		// char userMark = userChoice();
+		//char computerMark = (userMark == 'X') ? 'O' : 'X';
+		
 		System.out.println("Enter any Index from 1 to 9");
 		Scanner sc2 = new Scanner(System.in);
 		int Index = sc2.nextInt();
-		System.out.println("It is " + selectIndex(Index) + " that Current Position is available");
-		makeMove();
+		TTTG.checkIndex(Index);
+			TTTG.makeMove();
+		
+		
 
 	}
 
@@ -32,15 +36,29 @@ public class TicTacToeGame {
 			board1[i] = ' ';
 
 		}
-		System.out.println("Board Created");
+		//System.out.println("Board Created");
+		//System.out.println(" ");
 		return board1;
 	}
 
-	private static char userChoice(Scanner sc1) {
-		char c = sc1.next().toUpperCase().charAt(0);
-		return c;
+	private static char userChoice() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter User's Choice, Either 'X' Or 'O'");
+		String c = sc.next();
+		char c1 = c.toUpperCase().charAt(0);
+		char computerMark = (userMark == 'X') ? 'O' : 'X';
+		return c1;
 	}
 
+	private static char computerChoice() {
+		System.out.println("Enter Computer's Choice, Either 'X' Or 'O'");
+		Scanner sc = new Scanner(System.in);
+		String c = sc.next();
+		char c1 = c.toUpperCase().charAt(0);
+	
+		return c1;
+	}
+	
 	private static void showBoard(char[] board2) {
 		for (int j = 1; j < board2.length; j++) {
 			System.out.print("[" + board2[j] + "]");
@@ -51,13 +69,13 @@ public class TicTacToeGame {
 		}
 	}
 
-	private static boolean selectIndex(int position) {
-		//int position = Index.nextInt();
+	private static boolean checkIndex(int position) {
+		// int position = Index.nextInt();
 		if (position < 1 || position > 9) {
 			System.out.println("Invalid Input, please enter again !!");
 			Scanner sc3 = new Scanner(System.in);
 			int Index = sc3.nextInt();
-			selectIndex(Index);
+			checkIndex(Index);
 		} else if (position <= 9 && position >= 1) {
 			if (board[position] == ' ') {
 				System.out.println("Position free to move !!");
@@ -66,20 +84,44 @@ public class TicTacToeGame {
 				System.out.println("Position already occupied, choose other position.");
 				Scanner sc4 = new Scanner(System.in);
 				int Index = sc4.nextInt();
-				selectIndex(Index);
+				checkIndex(Index);
 			}
 		}
 		return true;
 	}
 
 	private static void makeMove() {
+		
 		System.out.println("Enter the position number where you want to play the move");
 		Scanner sc5 = new Scanner(System.in);
 		int Index1 = sc5.nextInt();
-		if (selectIndex(Index1)) {
+		if (checkIndex(Index1)) {
 			board[Index1] = userMark;
-			showBoard(board);
+			//showBoard(board);
 		}
+		showBoard(board);
+	}
+
+	private static void toss() {
+	
+		int max = 3;
+		int min = 1;
+		int range = max - min ;
+		int rand = (int) (Math.random() * range);
+		char rand1 = (char) rand;
+		if (rand == 0) {
+			System.out.println("Computer Will Start The Game");
+			computerMark = computerChoice();
+			userMark = (computerMark == 'X') ? 'O' : 'X';
+
+		} else if (rand == 1) {
+			System.out.println("User Will Start The Game");
+			userMark = userChoice();
+			computerMark = (userMark == 'X') ? 'O' : 'X';
+		}
+
+		// return rand;
+
 	}
 
 }
